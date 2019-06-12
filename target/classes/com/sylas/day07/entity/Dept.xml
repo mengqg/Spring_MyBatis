@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.sylas.day07.entity.DeptMapper">
+	<insert id = "addDept" parameterType = "com.sylas.day07.entity.Dept">
+		insert into T_DEPT (DEPTNO, DNAME, LOC) values (#{deptno}, #{dname}, #{loc})
+	</insert>
+	<update id = "updateDept" parameterType = "com.sylas.day07.entity.Dept">
+		update T_DEPT set 
+		DNAME = #{dname},
+		LOC = #{loc}
+		where DEPTNO = #{deptno}
+	</update>
+	<delete id = "deleteDept" parameterType = "int">
+		delete T_DEPT where DEPTNO = #{deptno}
+	</delete>
+	<select id = "findById" parameterType = "int" resultType = "com.sylas.day07.entity.Dept">
+		select * from T_DEPT where DEPTNO = #{deptno} 
+	</select>
+	<select id = "findAll" resultType = "com.sylas.day07.entity.Dept">
+		select * from T_DEPT
+	</select>
+	<select id = "findDept" parameterType = "int" resultType = "java.util.HashMap">
+		SELECT * FROM T_DEPT WHERE DEPTNO = #{deptno}
+	</select>
+	<select id = "findDepts" resultType = "java.util.HashMap">
+		SELECT * FROM T_DEPT
+	</select>
+	
+	<!-- ResultMap应用 -->
+	<resultMap id = "deptMap" type = "com.sylas.day07.entity.Dept1">
+		<result property="no" column="DEPTNO" jdbcType = "INTEGER" javaType = "int"/>
+		<result property="name" column="DNAME" jdbcType = "VARCHAR" javaType = "String"/>
+		<result property="loc" column="LOC" jdbcType = "VARCHAR" javaType = "String"/>
+	</resultMap>
+	<select id = "findAll1" resultMap = "deptMap">
+		SELECT * FROM T_DEPT
+	</select>
+</mapper>
